@@ -1,0 +1,21 @@
+services:
+    server:
+        build: ./server
+        ports:
+            - 5050:5000
+        command: npm run dev
+        volumes:
+            - ./server/src:/server/src
+    client:
+        build: ./client
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+        ports:
+            - 8080:3000
+        volumes:
+            - ./client/src:/client/src
+            - ./client/public:/client/public
+    mongodb:
+        image: mongo
+        volumes:
+            - ./data:/data/db
